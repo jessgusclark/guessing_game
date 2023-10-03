@@ -9,27 +9,42 @@ fn main() {
     let secret_number = rand::thread_rng()
         .gen_range(1..=100);
 
-    println!("Please input your guess:");
+    let mut number_of_guesses = 0;
 
-    let mut guess = String::new();
+    println!("Hint, the Number is {secret_number}");
 
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
+    loop {
+        println!("Please input your guess:");
 
-    // check if the input is a number 
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        let mut guess = String::new();
 
-    // @todo fix this (not part of the tutorial)
-    if guess > 100 {
-        println!("Guess should be less than 100!");
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line");
+
+        // check if the input is a number 
+        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        number_of_guesses+= 1;
+
+        // @todo fix this (not part of the tutorial)
+        if guess > 100 {
+            println!("Guess should be less than 100!");
+            break;
+        }
+
+        println!("You guessed: {guess} answer was {secret_number}");
+
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("{guess} is too Small!"),
+            Ordering::Greater => println!("{guess} is too Big!"),
+            Ordering::Equal => {
+                win(number_of_guesses);
+                break;
+            }
+        }
     }
+}
 
-    println!("You guessed: {guess} answer was {secret_number}");
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too Small!"),
-        Ordering::Greater => println!("Too Big!"),
-        Ordering::Equal => println!("You Win!"),
-    }
+fn win(guesses: u32) {
+    println!("YOU WIN with {guesses} guesses.");
 }
