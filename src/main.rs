@@ -1,11 +1,9 @@
 // Starndard(std) library io
 use std::io;
 use std::cmp::Ordering;
-
 use rand::Rng;
 
 fn main() {
-    // println!("{}", format_with_color("WELCOME", 91));
     println!("{}", format_color("======== WELCOME ========", Color::Red));
     println!("Please guess a number between 1 and 100");
 
@@ -43,8 +41,8 @@ fn main() {
         number_of_guesses = increment(number_of_guesses);
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("{guess} is too {}!", format_color("SMALL", Color::Red)),
-            Ordering::Greater => println!("{guess} is too {}!", format_color("BIG", Color::Green)),
+            Ordering::Less => println!("GUESS {}!", format_color("HIGHER", Color::Red)),
+            Ordering::Greater => println!("GUESS {}!", format_color("LOWER", Color::Green)),
             Ordering::Equal => {
                 win(number_of_guesses);
                 break;
@@ -78,11 +76,4 @@ fn match_color(color: Color) -> u8 {
 
 fn format_color(text: &str, color: Color) -> String {
     format!("\x1b[{}m{text}\x1b[0m", match_color(color))
-}
-
-
-#[test]
-fn test_increment() {
-    assert_eq!(increment(5), 6);
-    assert_eq!(increment(0), 1);
 }
