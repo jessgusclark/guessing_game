@@ -5,7 +5,8 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    println!("{}", print_with_color("WELCOME!!!!", 91));
+    // println!("{}", format_with_color("WELCOME", 91));
+    println!("{}", format_color("======== WELCOME ========", Color::Red));
     println!("Please guess a number between 1 and 100");
 
     let secret_number = rand::thread_rng()
@@ -28,13 +29,12 @@ fn main() {
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
                 if num > 100 {
-                    println!("The number is between 1 and 100.");
+                    println!("{}", format_color("The number is between 1 and 100.", Color::Red));
                 }
                 num
             },
             Err(_) => {
-                // println!("\x1b[93mNumbers only Please\x1b[0m");
-                print_yellow("Numbers only Please");
+                println!("{}", format_color("Numbers only Please!", Color::Yellow));
                 continue
             },
         };
@@ -42,11 +42,9 @@ fn main() {
         // increment the guess count:
         number_of_guesses = increment(number_of_guesses);
 
-        // println!("You guessed: {guess} answer was {secret_number}");
-
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("{guess} is too Small!"),
-            Ordering::Greater => println!("{guess} is too Big!"),
+            Ordering::Less => println!("{guess} is too {}!", format_color("SMALL", Color::Red)),
+            Ordering::Greater => println!("{guess} is too {}!", format_color("BIG", Color::Green)),
             Ordering::Equal => {
                 win(number_of_guesses);
                 break;
@@ -61,17 +59,27 @@ fn increment(amount: u32) -> u32 {
 }
 
 fn win(guesses: u32) {
-    println!("YOU WIN with {guesses} guesses.");
+    println!("{} with {guesses} guesses.", format_color("YOU WIN", Color::Green));
 }
 
-fn print_yellow(text: &str) {
-    println!("\x1b[93m{text}\x1b[0m");
+enum Color {
+    Red,
+    Green,
+    Yellow,
 }
 
-fn print_with_color(text: &str, color: u32) -> String {
-    format!("\x1b[{color}m{text}\x1b[0m") //.to_string()
-    //println!("\x1b[{color}m{text}\x1b[0m");
+fn match_color(color: Color) -> u8 {
+    match color {
+        Color::Red => 91,
+        Color::Green => 92,
+        Color::Yellow => 93,
+    }
 }
+
+fn format_color(text: &str, color: Color) -> String {
+    format!("\x1b[{}m{text}\x1b[0m", match_color(color))
+}
+
 
 #[test]
 fn test_increment() {
