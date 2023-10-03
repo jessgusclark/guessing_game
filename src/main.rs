@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    println!("Welcome!");
+    println!("Please guess a number between 1 and 100.");
 
     let secret_number = rand::thread_rng()
         .gen_range(1..=100);
@@ -25,7 +25,9 @@ fn main() {
         // check if the input is a number 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
-                // if (num > 100
+                if num > 100 {
+                    println!("The number is between 1 and 100.")
+                }
                 num
             },
             Err(_) => {
@@ -37,12 +39,7 @@ fn main() {
         // increment the guess count:
         number_of_guesses = increment(number_of_guesses);
 
-        // @todo fix this (not part of the tutorial)
-        if guess > 100 {
-            println!("Guess should be less than 100!");
-        }
-
-        println!("You guessed: {guess} answer was {secret_number}");
+        // println!("You guessed: {guess} answer was {secret_number}");
 
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("{guess} is too Small!"),
@@ -63,7 +60,6 @@ fn increment(amount: u32) -> u32 {
 fn win(guesses: u32) {
     println!("YOU WIN with {guesses} guesses.");
 }
-
 
 #[test]
 fn test_increment() {
