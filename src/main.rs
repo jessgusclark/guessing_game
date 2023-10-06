@@ -4,11 +4,13 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
+    let max_number = 100;
+
     println!("{}", format_color("======== WELCOME ========", Color::Red));
-    println!("Please guess a number between 1 and 100");
+    println!("Please guess a number between 1 and {}", max_number);
 
     let secret_number = rand::thread_rng()
-        .gen_range(1..=100);
+        .gen_range(1..=max_number);
 
     let mut number_of_guesses = 0;
 
@@ -26,7 +28,7 @@ fn main() {
         // check if the input is a number 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
-                if num > 100 {
+                if num > max_number {
                     println!("{}", format_color("The number is between 1 and 100.", Color::Red));
                 }
                 num
