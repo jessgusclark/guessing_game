@@ -83,20 +83,22 @@ fn format_color(text: &str, color: Color) -> String {
 }
 
 fn create_header(text: &str, color: Color) {
-    let local_color = color;
-    let text_length: usize = text.len() + 9;
+    let local_color = color;    // tech debt
+    let text_length: usize = text.len() + 8;
     let line = format_color(&write_line(text_length), local_color);
 
+    // tech debt: should be color, but not sure how to pass:
+    let column_line = format_color("||", Color::Green);
+
     println!("{}", line);
-    // println!("||  {text}  ||");
-    println!("||  {}  ||", format_color(text, Color::Red));
-    println!("{}", line);
+    println!("{column_line}  {}  {column_line}", format_color(text, Color::Red));
+    println!("{line}");
 }
 
 fn write_line(length: usize) -> String {
     let mut return_value:String = String::new();
 
-    for _i in 1..length {
+    for _i in 0..length {
         // return_value = return_value + "=";
         return_value.push_str("=");
     }
@@ -114,4 +116,10 @@ fn test_format_color() {
     assert_eq!(format_color("hello", Color::Red), "\x1b[91mhello\x1b[0m");
     assert_eq!(format_color("hello", Color::Green), "\x1b[92mhello\x1b[0m");
     assert_eq!(format_color("hello", Color::Yellow), "\x1b[93mhello\x1b[0m");
+}
+
+#[test]
+fn test_write_line() {
+    assert_eq!(write_line(5), "=====");
+    assert_eq!(write_line(10), "==========");
 }
