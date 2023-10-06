@@ -3,9 +3,8 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+const MAX_MUMBER: u32 = 100;
 fn main() {
-    const MAX_MUMBER: u32 = 100;
-
     // println!("{}", format_color("======== WELCOME ========", Color::Red));
     create_header("WELCOME", Color::Yellow);
 
@@ -112,6 +111,13 @@ fn test_increment() {
 }
 
 #[test]
+fn test_match_color() {
+    assert_eq!(match_color(Color::Red), 91);
+    assert_eq!(match_color(Color::Green), 92);
+    assert_eq!(match_color(Color::Yellow), 93);
+}
+
+#[test]
 fn test_format_color() {
     assert_eq!(format_color("hello", Color::Red), "\x1b[91mhello\x1b[0m");
     assert_eq!(format_color("hello", Color::Green), "\x1b[92mhello\x1b[0m");
@@ -123,3 +129,5 @@ fn test_write_line() {
     assert_eq!(write_line(5), "=====");
     assert_eq!(write_line(10), "==========");
 }
+
+
