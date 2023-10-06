@@ -4,13 +4,15 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    let max_number = 100;
+    const MAX_MUMBER: u32 = 100;
 
-    println!("{}", format_color("======== WELCOME ========", Color::Red));
-    println!("Please guess a number between 1 and {}", max_number);
+    // println!("{}", format_color("======== WELCOME ========", Color::Red));
+    create_header("WELCOME", Color::Yellow);
+
+    println!("Please guess a number between 1 and {}", MAX_MUMBER);
 
     let secret_number = rand::thread_rng()
-        .gen_range(1..=max_number);
+        .gen_range(1..=MAX_MUMBER);
 
     let mut number_of_guesses = 0;
 
@@ -28,7 +30,7 @@ fn main() {
         // check if the input is a number 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
-                if num > max_number {
+                if num > MAX_MUMBER {
                     println!("{}", format_color("The number is between 1 and 100.", Color::Red));
                 }
                 num
@@ -78,4 +80,25 @@ fn match_color(color: Color) -> u8 {
 
 fn format_color(text: &str, color: Color) -> String {
     format!("\x1b[{}m{text}\x1b[0m", match_color(color))
+}
+
+fn create_header(text: &str, color: Color) {
+    let local_color = color;
+    let text_length: usize = text.len() + 9;
+    let line = format_color(&write_line(text_length), local_color);
+
+    println!("{}", line);
+    // println!("||  {text}  ||");
+    println!("||  {}  ||", format_color(text, Color::Red));
+    println!("{}", line);
+}
+
+fn write_line(length: usize) -> String {
+    let mut return_value:String = String::new();
+
+    for _i in 1..length {
+        // return_value = return_value + "=";
+        return_value.push_str("=");
+    }
+    return return_value;
 }
