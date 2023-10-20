@@ -5,7 +5,6 @@ use rand::Rng;
 
 const MAX_MUMBER: u32 = 100;
 fn main() {
-    // println!("{}", format_color("======== WELCOME ========", Color::Red));
     create_header("WELCOME", Color::Yellow);
 
     println!("Please guess a number between 1 and {}", MAX_MUMBER);
@@ -98,7 +97,7 @@ fn write_line(length: usize) -> String {
     let mut return_value:String = String::new();
 
     for _i in 0..length {
-        // return_value = return_value + "=";
+        // for _i in loop_array {
         return_value.push_str("=");
     }
     return return_value;
