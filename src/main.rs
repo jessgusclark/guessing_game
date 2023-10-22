@@ -81,15 +81,13 @@ fn format_color(text: &str, color: &Color) -> String {
 }
 
 fn create_header(text: &str, color: Color) {
-    // let local_color = color;    // tech debt
     let text_length: usize = text.len() + 8;
     let line = format_color(&write_line(text_length), &color);
 
-    // tech debt: should be color, but not sure how to pass:
-    let column_line = format_color("||", &Color::Green);
+    let column_line = format_color("||", &color);
 
     println!("{}", line);
-    println!("{column_line}  {}  {column_line}", format_color(text, &Color::Red));
+    println!("{column_line}  {}  {column_line}", format_color(text, &color));
     println!("{line}");
 }
 
