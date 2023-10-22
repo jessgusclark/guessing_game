@@ -7,8 +7,8 @@ mod colors;
 use colors::Color;
 use colors::match_color;
 
-mod format_text;
-use format_text::format_text::hello_mod;
+mod text_utils;
+use text_utils::text_utils::hello_mod;
 
 const MAX_MUMBER: u32 = 100;
 fn main() {
