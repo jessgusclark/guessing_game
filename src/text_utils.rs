@@ -15,6 +15,7 @@ pub mod text_utils {
 
 #[test]
 fn test_write_line() {
+    assert_eq!(text_utils::write_line(0), "");
     assert_eq!(text_utils::write_line(5), "=====");
     assert_eq!(text_utils::write_line(10), "==========");
 }

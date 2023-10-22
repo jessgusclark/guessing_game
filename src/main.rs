@@ -4,12 +4,11 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 mod colors;
-use colors::Color;
-use colors::match_color;
+use colors::{Color, match_color};
 
 mod text_utils;
-use text_utils::text_utils::hello_mod;
-use text_utils::text_utils::write_line;
+use text_utils::text_utils::{hello_mod, write_line};
+
 
 const MAX_MUMBER: u32 = 100;
 fn main() {
