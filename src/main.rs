@@ -5,6 +5,7 @@ use rand::Rng;
 
 mod colors;
 use colors::Color;
+use colors::match_color;
 
 mod format_text;
 use format_text::format_text::hello_mod;
@@ -69,14 +70,6 @@ fn win(guesses: u32) {
     println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
 }
 
-fn match_color(color: &Color) -> u8 {
-    match color {
-        Color::Red => 91,
-        Color::Green => 92,
-        Color::Yellow => 93,
-    }
-}
-
 fn format_color(text: &str, color: &Color) -> String {
     format!("\x1b[{}m{text}\x1b[0m", match_color(&color))
 }
@@ -106,13 +99,6 @@ fn write_line(length: usize) -> String {
 fn test_increment() {
     assert_eq!(increment(5), 6);
     assert_eq!(increment(0), 1);
-}
-
-#[test]
-fn test_match_color() {
-    assert_eq!(match_color(&Color::Red), 91);
-    assert_eq!(match_color(&Color::Green), 92);
-    assert_eq!(match_color(&Color::Yellow), 93);
 }
 
 #[test]
