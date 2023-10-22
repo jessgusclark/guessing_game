@@ -3,11 +3,15 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+mod format_text;
+use format_text::format_text::hello_mod;
+
 const MAX_MUMBER: u32 = 100;
 fn main() {
     create_header("GUESS THE NUMBER", Color::Red);
 
     println!("Please guess a number between 1 and {}", MAX_MUMBER);
+    hello_mod();
 
     let secret_number = rand::thread_rng()
         .gen_range(1..=MAX_MUMBER);
