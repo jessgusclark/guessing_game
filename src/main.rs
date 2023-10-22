@@ -5,7 +5,7 @@ use rand::Rng;
 
 const MAX_MUMBER: u32 = 100;
 fn main() {
-    create_header("WELCOME", Color::Yellow);
+    create_header("GUESS THE NUMBER", Color::Red);
 
     println!("Please guess a number between 1 and {}", MAX_MUMBER);
 
