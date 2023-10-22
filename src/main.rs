@@ -3,6 +3,9 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+mod colors;
+use colors::Color;
+
 mod format_text;
 use format_text::format_text::hello_mod;
 
@@ -64,12 +67,6 @@ fn increment(amount: u32) -> u32 {
 
 fn win(guesses: u32) {
     println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
-}
-
-enum Color {
-    Red,
-    Green,
-    Yellow,
 }
 
 fn match_color(color: &Color) -> u8 {
