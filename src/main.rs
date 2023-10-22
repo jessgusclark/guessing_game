@@ -9,6 +9,7 @@ use colors::match_color;
 
 mod text_utils;
 use text_utils::text_utils::hello_mod;
+use text_utils::text_utils::write_line;
 
 const MAX_MUMBER: u32 = 100;
 fn main() {
@@ -85,16 +86,6 @@ fn create_header(text: &str, color: Color) {
     println!("{line}");
 }
 
-fn write_line(length: usize) -> String {
-    let mut return_value:String = String::new();
-
-    for _i in 0..length {
-        // for _i in loop_array {
-        return_value.push_str("=");
-    }
-    return return_value;
-}
-
 #[test]
 fn test_increment() {
     assert_eq!(increment(5), 6);
@@ -107,11 +98,3 @@ fn test_format_color() {
     assert_eq!(format_color("hello", &Color::Green), "\x1b[92mhello\x1b[0m");
     assert_eq!(format_color("hello", &Color::Yellow), "\x1b[93mhello\x1b[0m");
 }
-
-#[test]
-fn test_write_line() {
-    assert_eq!(write_line(5), "=====");
-    assert_eq!(write_line(10), "==========");
-}
-
-
