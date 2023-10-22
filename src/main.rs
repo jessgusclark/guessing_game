@@ -3,10 +3,8 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+const MAX_MUMBER: u32 = 100;
 fn main() {
-    const MAX_MUMBER: u32 = 100;
-
-    // println!("{}", format_color("======== WELCOME ========", Color::Red));
     create_header("WELCOME", Color::Yellow);
 
     println!("Please guess a number between 1 and {}", MAX_MUMBER);
@@ -83,21 +81,23 @@ fn format_color(text: &str, color: Color) -> String {
 }
 
 fn create_header(text: &str, color: Color) {
-    let local_color = color;
-    let text_length: usize = text.len() + 9;
+    let local_color = color;    // tech debt
+    let text_length: usize = text.len() + 8;
     let line = format_color(&write_line(text_length), local_color);
 
+    // tech debt: should be color, but not sure how to pass:
+    let column_line = format_color("||", Color::Green);
+
     println!("{}", line);
-    // println!("||  {text}  ||");
-    println!("||  {}  ||", format_color(text, Color::Red));
-    println!("{}", line);
+    println!("{column_line}  {}  {column_line}", format_color(text, Color::Red));
+    println!("{line}");
 }
 
 fn write_line(length: usize) -> String {
     let mut return_value:String = String::new();
 
-    for _i in 1..length {
-        // return_value = return_value + "=";
+    for _i in 0..length {
+        // for _i in loop_array {
         return_value.push_str("=");
     }
     return return_value;
@@ -110,8 +110,23 @@ fn test_increment() {
 }
 
 #[test]
+fn test_match_color() {
+    assert_eq!(match_color(Color::Red), 91);
+    assert_eq!(match_color(Color::Green), 92);
+    assert_eq!(match_color(Color::Yellow), 93);
+}
+
+#[test]
 fn test_format_color() {
     assert_eq!(format_color("hello", Color::Red), "\x1b[91mhello\x1b[0m");
     assert_eq!(format_color("hello", Color::Green), "\x1b[92mhello\x1b[0m");
     assert_eq!(format_color("hello", Color::Yellow), "\x1b[93mhello\x1b[0m");
 }
+
+#[test]
+fn test_write_line() {
+    assert_eq!(write_line(5), "=====");
+    assert_eq!(write_line(10), "==========");
+}
+
+
