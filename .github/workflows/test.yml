@@ -25,3 +25,7 @@ jobs:
         run: |
           cargo check
           cargo test --all          
+
+      - name: Clippy
+        run: |
+          cargo clippy --all-targets --all-features -- -D warnings
