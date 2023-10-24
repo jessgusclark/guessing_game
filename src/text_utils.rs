@@ -2,13 +2,7 @@ pub mod utils {
     use crate::colors::{Color, format_color};
 
     pub fn write_line(length: usize) -> String {
-        let mut return_value:String = String::new();
-    
-        for _i in 0..length {
-            return_value.push('=');
-        }
-
-        return_value
+        '='.to_string().repeat(length)
     }
 
     pub fn create_header(text: &str, color: Color) {
