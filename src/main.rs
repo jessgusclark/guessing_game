@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 mod colors;
-use colors::{Color, match_color};
+use colors::{Color, format_color};
 
 mod text_utils;
 use text_utils::text_utils::{hello_mod, write_line};
@@ -70,10 +70,6 @@ fn win(guesses: u32) {
     println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
 }
 
-fn format_color(text: &str, color: &Color) -> String {
-    format!("\x1b[{}m{text}\x1b[0m", match_color(&color))
-}
-
 fn create_header(text: &str, color: Color) {
     let text_length: usize = text.len() + 8;
     let line = format_color(&write_line(text_length), &color);
@@ -89,11 +85,4 @@ fn create_header(text: &str, color: Color) {
 fn test_increment() {
     assert_eq!(increment(5), 6);
     assert_eq!(increment(0), 1);
-}
-
-#[test]
-fn test_format_color() {
-    assert_eq!(format_color("hello", &Color::Red), "\x1b[91mhello\x1b[0m");
-    assert_eq!(format_color("hello", &Color::Green), "\x1b[92mhello\x1b[0m");
-    assert_eq!(format_color("hello", &Color::Yellow), "\x1b[93mhello\x1b[0m");
 }
