@@ -3,6 +3,13 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+mod colors;
+use colors::{Color, format_color};
+
+mod text_utils;
+use text_utils::text_utils::create_header;
+
+
 const MAX_MUMBER: u32 = 100;
 fn main() {
     create_header("GUESS THE NUMBER", Color::Red);
@@ -62,69 +69,8 @@ fn win(guesses: u32) {
     println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
 }
 
-enum Color {
-    Red,
-    Green,
-    Yellow,
-}
-
-fn match_color(color: &Color) -> u8 {
-    match color {
-        Color::Red => 91,
-        Color::Green => 92,
-        Color::Yellow => 93,
-    }
-}
-
-fn format_color(text: &str, color: &Color) -> String {
-    format!("\x1b[{}m{text}\x1b[0m", match_color(&color))
-}
-
-fn create_header(text: &str, color: Color) {
-    let text_length: usize = text.len() + 8;
-    let line = format_color(&write_line(text_length), &color);
-
-    let column_line = format_color("||", &color);
-
-    println!("{}", line);
-    println!("{column_line}  {}  {column_line}", format_color(text, &color));
-    println!("{line}");
-}
-
-fn write_line(length: usize) -> String {
-    let mut return_value:String = String::new();
-
-    for _i in 0..length {
-        // for _i in loop_array {
-        return_value.push_str("=");
-    }
-    return return_value;
-}
-
 #[test]
 fn test_increment() {
     assert_eq!(increment(5), 6);
     assert_eq!(increment(0), 1);
 }
-
-#[test]
-fn test_match_color() {
-    assert_eq!(match_color(&Color::Red), 91);
-    assert_eq!(match_color(&Color::Green), 92);
-    assert_eq!(match_color(&Color::Yellow), 93);
-}
-
-#[test]
-fn test_format_color() {
-    assert_eq!(format_color("hello", &Color::Red), "\x1b[91mhello\x1b[0m");
-    assert_eq!(format_color("hello", &Color::Green), "\x1b[92mhello\x1b[0m");
-    assert_eq!(format_color("hello", &Color::Yellow), "\x1b[93mhello\x1b[0m");
-}
-
-#[test]
-fn test_write_line() {
-    assert_eq!(write_line(5), "=====");
-    assert_eq!(write_line(10), "==========");
-}
-
-
