@@ -7,7 +7,7 @@ mod colors;
 use colors::{Color, format_color};
 
 mod text_utils;
-use text_utils::text_utils::create_header;
+use text_utils::utils::create_header;
 
 
 const MAX_MUMBER: u32 = 100;

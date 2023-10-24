@@ -1,4 +1,4 @@
-pub mod text_utils {
+pub mod utils {
     use crate::colors::{Color, format_color};
 
     pub fn write_line(length: usize) -> String {
@@ -25,7 +25,7 @@ pub mod text_utils {
 
 #[test]
 fn test_write_line() {
-    assert_eq!(text_utils::write_line(0), "");
-    assert_eq!(text_utils::write_line(5), "=====");
-    assert_eq!(text_utils::write_line(10), "==========");
+    assert_eq!(utils::write_line(0), "");
+    assert_eq!(utils::write_line(5), "=====");
+    assert_eq!(utils::write_line(10), "==========");
 }
