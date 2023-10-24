@@ -5,9 +5,10 @@ pub mod text_utils {
         let mut return_value:String = String::new();
     
         for _i in 0..length {
-            return_value.push_str("=");
+            return_value.push('=');
         }
-        return return_value;
+
+        return_value
     }
 
     pub fn create_header(text: &str, color: Color) {
