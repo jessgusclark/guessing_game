@@ -7,7 +7,7 @@ mod colors;
 use colors::{Color, format_color};
 
 mod text_utils;
-use text_utils::text_utils::{hello_mod, write_line};
+use text_utils::text_utils::{hello_mod, create_header};
 
 
 const MAX_MUMBER: u32 = 100;
@@ -68,17 +68,6 @@ fn increment(amount: u32) -> u32 {
 
 fn win(guesses: u32) {
     println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
-}
-
-fn create_header(text: &str, color: Color) {
-    let text_length: usize = text.len() + 8;
-    let line = format_color(&write_line(text_length), &color);
-
-    let column_line = format_color("||", &color);
-
-    println!("{}", line);
-    println!("{column_line}  {}  {column_line}", format_color(text, &color));
-    println!("{line}");
 }
 
 #[test]
