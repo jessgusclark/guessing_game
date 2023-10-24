@@ -21,11 +21,11 @@ jobs:
           rustc --version
           cargo clippy --version          
 
-      - name: Test
+      - name: Run Tests
         run: |
           cargo check
           cargo test --all          
 
-      - name: Clippy
+      - name: Ask clippy to check the code
         run: |
           cargo clippy --all-targets --all-features -- -D warnings
