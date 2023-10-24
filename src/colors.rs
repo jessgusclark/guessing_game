@@ -13,7 +13,7 @@ pub fn match_color(color: &Color) -> u8 {
 }
 
 pub fn format_color(text: &str, color: &Color) -> String {
-  format!("\x1b[{}m{text}\x1b[0m", match_color(&color))
+  format!("\x1b[{}m{text}\x1b[0m", match_color(color))
 }
 
 #[test]

@@ -9,7 +9,7 @@ jobs:
   test_application:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Update local toolchain
         run: |
@@ -21,7 +21,11 @@ jobs:
           rustc --version
           cargo clippy --version          
 
-      - name: Test
+      - name: Run Tests
         run: |
           cargo check
           cargo test --all          
+
+      - name: Ask clippy to check the code
+        run: |
+          cargo clippy --all-targets --all-features -- -D warnings
