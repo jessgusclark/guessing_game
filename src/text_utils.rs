@@ -1,10 +1,6 @@
 pub mod text_utils {
     use crate::colors::{Color, format_color};
 
-    pub fn hello_mod() {
-        println!("Matchcollor has been called");
-    }
-
     pub fn write_line(length: usize) -> String {
         let mut return_value:String = String::new();
     
@@ -22,7 +18,7 @@ pub mod text_utils {
     
         println!("{}", line);
         println!("{column_line}  {}  {column_line}", format_color(text, &color));
-        println!("{line}");
+        println!("{}", line);
     }
 }
 
