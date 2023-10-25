@@ -1,4 +1,4 @@
-pub mod game_state {
+pub mod game_logic {
     use std::cmp::Ordering;
 
     pub struct GameState {
@@ -30,9 +30,10 @@ pub mod game_state {
         }
 
         pub fn handle_guess(&mut self, guess: u32) -> GuessOutcome {
-            self.number_of_guesses += 1;
-
             if guess > self.max_number { return GuessOutcome::OutOfRange }
+
+            // number of valid guesses:
+            self.number_of_guesses += 1;
 
             match guess.cmp(&self.secret_number) {
                 Ordering::Less => {
@@ -60,7 +61,7 @@ pub mod game_state {
 
 #[cfg(test)]
 mod tests {
-    use crate::{GameState, game_state::game_state::GuessOutcome};
+    use crate::{GameState, game_state::game_logic::GuessOutcome};
 
     #[test]
     fn test_new_game_state() {
@@ -81,6 +82,9 @@ mod tests {
 
         matches!(game.handle_guess(150), GuessOutcome::OutOfRange);
         matches!(game.handle_guess(50), GuessOutcome::Equal);
+
+        // 3 valid guesses since 150 is out of range:
+        assert_eq!(game.number_of_guesses, 3);
     }
 
     #[test]
