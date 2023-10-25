@@ -40,7 +40,7 @@ fn main() {
                     println!(
                         "{}", 
                         format_color(
-                            &return_range(1, MAX_NUMBER),
+                            &return_range([1, MAX_NUMBER]),
                             &Color::Red
                         )
                     );
@@ -49,8 +49,7 @@ fn main() {
             },
             Err(_) => {
                 if guess.trim() == "hint" {
-                    let hint = game.get_a_hint();
-                    return_range(hint[0], hint[1]);
+                    return_range(game.get_a_hint());
                     continue
                 }
             
@@ -72,8 +71,8 @@ fn main() {
     }
 }
 
-fn return_range(lowest: u32, highest: u32) -> String {
-    format!("It is between {} and {}", lowest, highest)
+fn return_range(range: [u32; 2]) -> String {
+    format!("It is between {} and {}", range[0], range[1])
 }
 
 fn win(guesses: &u32, hints: &u32) {
