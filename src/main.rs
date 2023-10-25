@@ -18,8 +18,6 @@ fn main() {
     
     let mut game = GameState::new(MAX_NUMBER); 
 
-    // println!("Hint, the Number is {secret_number}");
-
     loop {
         println!("Please input your guess:");
 
@@ -34,7 +32,7 @@ fn main() {
             Ok(num) => num,
             Err(_) => {
                 if guess.trim() == "hint" {
-                    return_range(game.get_a_hint());
+                    println!("{}", return_range(game.get_a_hint()));
                     continue
                 }
             

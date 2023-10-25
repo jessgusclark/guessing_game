@@ -20,7 +20,6 @@ pub mod game_state {
 
     impl GameState {
         pub fn new(max_number: u32) -> Self {
-            println!("Using the GameState state!");
             GameState {
                 secret_number: rand::thread_rng().gen_range(1..=max_number),
                 max_number,
