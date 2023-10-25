@@ -28,8 +28,6 @@ fn main() {
     loop {
         println!("Please input your guess:");
 
-        println!("It is between {} and {}", lowest_guess, highest_guess);
-
         let mut guess = String::new();
 
         io::stdin()
@@ -40,12 +38,23 @@ fn main() {
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
                 if num > MAX_NUMBER {
-                    println!("{}", format_color(&format!("The number is between 1 and {}", MAX_NUMBER), &Color::Red));
+                    println!(
+                        "{}", 
+                        format_color(
+                            &return_range(1, MAX_NUMBER),
+                            &Color::Red
+                        )
+                    );
                 }
                 num
             },
             Err(_) => {
-                handle_user_input_error(guess);
+                if guess.trim() == "hint" {
+                    println!("{}", return_range(lowest_guess, highest_guess));
+                    continue
+                }
+            
+                println!("{}", format_color("Numbers only Please!", &Color::Yellow));
                 continue
             },
         };
@@ -75,12 +84,8 @@ fn main() {
     }
 }
 
-fn handle_user_input_error(guess: String) -> () {
-    if guess.trim() == "hint" {
-        return println!("you don't get any hints!")
-    }
-
-    println!("{}", format_color("Numbers only Please!", &Color::Yellow));
+fn return_range(lowest: u32, highest: u32) -> String {
+    format!("It is between {} and {}", lowest, highest)
 }
 
 fn increment(amount: u32) -> u32 {
