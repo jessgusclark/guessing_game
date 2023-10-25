@@ -8,12 +8,13 @@ pub mod game_state {
         pub number_of_guesses: u32,
         pub number_of_hints: u32,
     }
-
+    /*
     pub enum GuessOutcome {
         Equal,
         Higher,
         Lower,
     }
+     */
 
     impl GameState {
         pub fn new(secret_number: u32) -> Self {
@@ -28,11 +29,10 @@ pub mod game_state {
         }
 
         pub fn handle_guess(&mut self, guess: u32) -> &'static str {
-            self.number_of_guesses += self.number_of_guesses;
+            self.number_of_guesses += 1;
 
             match guess.cmp(&self.secret_number) {
                 Ordering::Less => {
-                    // println!("GUESS {}!", format_color("HIGHER", &Color::Red));
                     if guess > self.lowest_guess {
                         self.lowest_guess = guess;
                     }
@@ -40,7 +40,6 @@ pub mod game_state {
                     "Guess HIGHER"
                 },
                 Ordering::Greater => {
-                    // println!("GUESS {}!", format_color("LOWER", &Color::Green));
                     if guess < self.highest_guess {
                         self.highest_guess = guess;
                     }
@@ -48,6 +47,11 @@ pub mod game_state {
                 },
                 Ordering::Equal => "Equal"
             }
+        }
+
+        pub fn get_a_hint(&mut self) -> [u32; 2] {
+            self.number_of_hints += 1;
+            [self.lowest_guess, self.highest_guess]
         }
     }
 }
