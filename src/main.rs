@@ -20,6 +20,8 @@ fn main() {
         .gen_range(1..=MAX_NUMBER);
 
     let mut number_of_guesses = 0;
+
+    let mut number_of_hints = 0;
     let mut highest_guess: u32 = MAX_NUMBER;
     let mut lowest_guess: u32 = 0;
 
@@ -51,6 +53,7 @@ fn main() {
             Err(_) => {
                 if guess.trim() == "hint" {
                     println!("{}", return_range(lowest_guess, highest_guess));
+                    number_of_hints = increment(number_of_hints);
                     continue
                 }
             
@@ -77,7 +80,7 @@ fn main() {
                 }
             },
             Ordering::Equal => {
-                win(number_of_guesses);
+                win(number_of_guesses, number_of_hints);
                 break;
             }
         }
@@ -93,8 +96,8 @@ fn increment(amount: u32) -> u32 {
     amount + 1
 }
 
-fn win(guesses: u32) {
-    println!("{} with {guesses} guesses.", format_color("YOU WIN", &Color::Green));
+fn win(guesses: u32, hints: u32) {
+    println!("{} with {guesses} guesses and {hints} hints!", format_color("YOU WIN", &Color::Green));
 }
 
 #[test]
