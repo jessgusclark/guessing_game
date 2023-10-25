@@ -73,17 +73,6 @@ fn return_range(lowest: u32, highest: u32) -> String {
     format!("It is between {} and {}", lowest, highest)
 }
 
-fn increment(amount: u32) -> u32 {
-    // will return since there is no ; at the end:
-    amount + 1
-}
-
 fn win(guesses: &u32, hints: &u32) {
     println!("{} with {guesses} guesses and {hints} hints!", format_color("YOU WIN", &Color::Green));
-}
-
-#[test]
-fn test_increment() {
-    assert_eq!(increment(5), 6);
-    assert_eq!(increment(0), 1);
 }

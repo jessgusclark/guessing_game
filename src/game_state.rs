@@ -36,7 +36,6 @@ pub mod game_state {
                     if guess > self.lowest_guess {
                         self.lowest_guess = guess;
                     }
-                    // GuessOutcome::Higher
                     "Guess HIGHER"
                 },
                 Ordering::Greater => {
