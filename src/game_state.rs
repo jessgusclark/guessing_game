@@ -1,4 +1,5 @@
 pub mod game_state {
+    use rand::Rng;
     use std::cmp::Ordering;
 
     pub struct GameState {
@@ -16,12 +17,12 @@ pub mod game_state {
     }
 
     impl GameState {
-        pub fn new(secret_number: u32) -> Self {
-            println!("Using the GameState state!");   
+        pub fn new(max_number: u32) -> Self {
+            println!("Using the GameState state!");
             GameState {
-                secret_number,
+                secret_number: rand::thread_rng().gen_range(1..=max_number),
                 lowest_guess: 0,
-                highest_guess: 100,
+                highest_guess: max_number,
                 number_of_guesses: 0,
                 number_of_hints: 0,
             }
