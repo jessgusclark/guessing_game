@@ -60,7 +60,7 @@ pub mod game_state {
 
 #[cfg(test)]
 mod tests {
-    use crate::GameState; // Import the GameState struct
+    use crate::{GameState, game_state::game_state::GuessOutcome};
 
     #[test]
     fn test_new_game_state() {
@@ -74,11 +74,13 @@ mod tests {
     #[test]
     fn test_handle_guess() {
         let mut game = GameState::new(50, 100);
-        game.handle_guess(75);
-        game.handle_guess(25);
+        matches!(game.handle_guess(75), GuessOutcome::Lower);
+        matches!(game.handle_guess(25), GuessOutcome::Higher);
 
         assert_eq!(game.number_of_guesses, 2);
 
+        matches!(game.handle_guess(150), GuessOutcome::OutOfRange);
+        matches!(game.handle_guess(50), GuessOutcome::Equal);
     }
 
     #[test]
@@ -89,5 +91,6 @@ mod tests {
 
         let hint = game.get_a_hint();
         assert_eq!(hint, [25,75]);
+        assert_eq!(game.number_of_hints, 1);
     }
 }
