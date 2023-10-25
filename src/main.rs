@@ -31,18 +31,7 @@ fn main() {
 
         // check if the input is a number 
         let guess: u32 = match guess.trim().parse() {
-            Ok(num) => {
-                if num > MAX_NUMBER {
-                    println!(
-                        "{}", 
-                        format_color(
-                            &return_range([1, MAX_NUMBER]),
-                            &Color::Red
-                        )
-                    );
-                }
-                num
-            },
+            Ok(num) => num,
             Err(_) => {
                 if guess.trim() == "hint" {
                     return_range(game.get_a_hint());
@@ -59,6 +48,15 @@ fn main() {
                 println!("{}", format_color(&"Guess Lower", &Color::Red)),
             GuessOutcome::Higher =>
                 println!("{}", format_color(&"Guess Higher", &Color::Green)),
+            GuessOutcome::OutOfRange => {
+                println!(
+                    "Guess out of range. {}", 
+                    format_color(
+                        &return_range([1, MAX_NUMBER]),
+                        &Color::Red
+                    )
+                );
+            },
             GuessOutcome::Equal => {
                 win(&game.number_of_guesses, &game.number_of_hints);
                 break;

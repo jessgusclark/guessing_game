@@ -4,6 +4,7 @@ pub mod game_state {
 
     pub struct GameState {
         secret_number: u32,
+        pub max_number: u32,
         pub lowest_guess: u32,
         pub highest_guess: u32,
         pub number_of_guesses: u32,
@@ -14,6 +15,7 @@ pub mod game_state {
         Equal,
         Higher,
         Lower,
+        OutOfRange,
     }
 
     impl GameState {
@@ -21,6 +23,7 @@ pub mod game_state {
             println!("Using the GameState state!");
             GameState {
                 secret_number: rand::thread_rng().gen_range(1..=max_number),
+                max_number,
                 lowest_guess: 0,
                 highest_guess: max_number,
                 number_of_guesses: 0,
@@ -30,6 +33,8 @@ pub mod game_state {
 
         pub fn handle_guess(&mut self, guess: u32) -> GuessOutcome {
             self.number_of_guesses += 1;
+
+            if guess > self.max_number { return GuessOutcome::OutOfRange }
 
             match guess.cmp(&self.secret_number) {
                 Ordering::Less => {
