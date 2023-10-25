@@ -1,5 +1,5 @@
 // Starndard(std) library io
-use std::io;
+use std::{io, env};
 use rand::Rng;
 
 mod game_state;
@@ -11,8 +11,13 @@ use colors::{Color, format_color};
 mod text_utils;
 use text_utils::utils::create_header;
 
+mod user_parameters;
+use user_parameters::handle_user_parameters;
+
 const MAX_NUMBER: u32 = 100;
 fn main() {
+    handle_user_parameters(env::args().collect());
+
     create_header("GUESS THE NUMBER", Color::Red);
 
     println!("Please guess a number between 1 and {}", MAX_NUMBER);
