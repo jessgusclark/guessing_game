@@ -1,3 +1,5 @@
+use std::process;
+
 pub fn handle_user_parameters(args: Vec<String>) -> u32 {
     let mut max_number: u32 = 100;
     for arg in args.iter() {
@@ -14,6 +16,7 @@ pub fn handle_user_parameters(args: Vec<String>) -> u32 {
                 println!("  -v, --version       Gets the version number");
                 println!("  --max_number=1000   Sets the max number");
                 println!();
+                process::exit(0);
             }
 
             "--version" | "-v" => {
