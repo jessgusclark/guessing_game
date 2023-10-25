@@ -1,5 +1,4 @@
 pub mod game_state {
-    use rand::Rng;
     use std::cmp::Ordering;
 
     pub struct GameState {
@@ -19,9 +18,9 @@ pub mod game_state {
     }
 
     impl GameState {
-        pub fn new(max_number: u32) -> Self {
+        pub fn new(secret_number: u32, max_number: u32) -> Self {
             GameState {
-                secret_number: rand::thread_rng().gen_range(1..=max_number),
+                secret_number,
                 max_number,
                 lowest_guess: 0,
                 highest_guess: max_number,
@@ -56,5 +55,22 @@ pub mod game_state {
             self.number_of_hints += 1;
             [self.lowest_guess, self.highest_guess]
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::GameState; // Import the GameState struct
+
+    #[test]
+    fn test_new_game_state() {
+        // Test the new constructor
+        let game = GameState::new(50, 100);
+        assert_eq!(game.max_number, 100);
+    }
+
+    #[test]
+    fn test_handle_guess() {
+        // Test the handle_guess method
     }
 }

@@ -1,5 +1,6 @@
 // Starndard(std) library io
 use std::io;
+use rand::Rng;
 
 mod game_state;
 use game_state::game_state::{GameState, GuessOutcome};
@@ -16,7 +17,8 @@ fn main() {
 
     println!("Please guess a number between 1 and {}", MAX_NUMBER);
     
-    let mut game = GameState::new(MAX_NUMBER); 
+    let secret_number = rand::thread_rng().gen_range(1..=MAX_NUMBER);
+    let mut game = GameState::new(secret_number, MAX_NUMBER); 
 
     loop {
         println!("Please input your guess:");
