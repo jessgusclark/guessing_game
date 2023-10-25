@@ -86,9 +86,14 @@ mod tests {
         // 3 valid guesses since 150 is out of range:
         assert_eq!(game.number_of_guesses, 3);
     }
+}
+
+#[cfg(test)]
+mod test_get_a_hint {
+    use crate::game_state::game_logic::GameState;
 
     #[test]
-    fn test_get_a_hint() {
+    fn valid() {
         let mut game = GameState::new(50, 100);
         game.handle_guess(75);
         game.handle_guess(25);
@@ -97,4 +102,12 @@ mod tests {
         assert_eq!(hint, [25,75]);
         assert_eq!(game.number_of_hints, 1);
     }
+
+    #[test]
+    fn out_of_range() {
+        let mut game = GameState::new(50, 100);
+        game.handle_guess(150);
+        assert_eq!(game.get_a_hint(), [0, 100]);
+    }
 }
+

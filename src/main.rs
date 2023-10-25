@@ -49,8 +49,9 @@ fn main() {
             GuessOutcome::Higher =>
                 println!("{}", format_color("Guess Higher", &Color::Green)),
             GuessOutcome::OutOfRange => {
+                // let error = format!(Guess is)
                 println!(
-                    "Guess out of range. {}", 
+                    "{}",
                     format_color(
                         &return_range([1, MAX_NUMBER]),
                         &Color::Red
