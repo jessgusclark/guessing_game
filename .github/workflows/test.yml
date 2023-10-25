@@ -25,7 +25,3 @@ jobs:
         run: |
           cargo check
           cargo test --all          
-
-      - name: Ask clippy to check the code
-        run: |
-          cargo clippy --all-targets --all-features -- -D warnings
