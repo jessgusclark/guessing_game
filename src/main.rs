@@ -3,7 +3,7 @@ use std::io;
 use rand::Rng;
 
 mod game_state;
-use game_state::game_state::{GameState};
+use game_state::game_state::{GameState, GuessOutcome};
 
 mod colors;
 use colors::{Color, format_color};
@@ -59,12 +59,15 @@ fn main() {
             },
         };
 
-        let outcome = game.handle_guess(guess);
-        if outcome == "Equal" {
-            win(&game.number_of_guesses, &game.number_of_hints);
-            break;
-        } else {
-            println!("{outcome}")
+        match game.handle_guess(guess) {
+            GuessOutcome::Lower =>
+                println!("{}", format_color(&"Guess Lower", &Color::Red)),
+            GuessOutcome::Higher =>
+                println!("{}", format_color(&"Guess Higher", &Color::Green)),
+            GuessOutcome::Equal => {
+                win(&game.number_of_guesses, &game.number_of_hints);
+                break;
+            }
         }
     }
 }
