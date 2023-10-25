@@ -1,17 +1,15 @@
 // Starndard(std) library io
 use std::io;
-use std::cmp::Ordering;
 use rand::Rng;
 
 mod game_state; // Import the game_state module
-use game_state::game_state::GameState; // Import the GameState struct
+use game_state::game_state::{GameState, GuessOutcome}; // Import the GameState struct
 
 mod colors;
 use colors::{Color, format_color};
 
 mod text_utils;
 use text_utils::utils::create_header;
-
 
 const MAX_NUMBER: u32 = 100;
 fn main() {
@@ -67,11 +65,12 @@ fn main() {
             },
         };
 
-        if game.handle_guess(guess) {
-            win(game.number_of_guesses, game.number_of_hints);
+        let outcome = game.handle_guess(guess);
+        if outcome == "Equal" {
+            win(&game.number_of_guesses, &game.number_of_hints);
             break;
         } else {
-            println!("NOPE");
+            println!("{outcome}")
         }
     }
 }
@@ -85,7 +84,7 @@ fn increment(amount: u32) -> u32 {
     amount + 1
 }
 
-fn win(guesses: u32, hints: u32) {
+fn win(guesses: &u32, hints: &u32) {
     println!("{} with {guesses} guesses and {hints} hints!", format_color("YOU WIN", &Color::Green));
 }
 
