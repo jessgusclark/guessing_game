@@ -40,7 +40,7 @@ fn main() {
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
                 if num > MAX_NUMBER {
-                    println!("{}", format_color("The number is between 1 and 100.", &Color::Red));
+                    println!("{}", format_color(&format!("The number is between 1 and {}", MAX_NUMBER), &Color::Red));
                 }
                 num
             },
