@@ -67,10 +67,27 @@ mod tests {
         // Test the new constructor
         let game = GameState::new(50, 100);
         assert_eq!(game.max_number, 100);
+        assert_eq!(game.highest_guess, 100);
+        assert_eq!(game.lowest_guess, 0);
     }
 
     #[test]
     fn test_handle_guess() {
-        // Test the handle_guess method
+        let mut game = GameState::new(50, 100);
+        game.handle_guess(75);
+        game.handle_guess(25);
+
+        assert_eq!(game.number_of_guesses, 2);
+
+    }
+
+    #[test]
+    fn test_get_a_hint() {
+        let mut game = GameState::new(50, 100);
+        game.handle_guess(75);
+        game.handle_guess(25);
+
+        let hint = game.get_a_hint();
+        assert_eq!(hint, [25,75]);
     }
 }
