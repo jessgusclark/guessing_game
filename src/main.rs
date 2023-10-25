@@ -3,6 +3,9 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
+mod game_state; // Import the game_state module
+use game_state::game_state::GameState; // Import the GameState struct
+
 mod colors;
 use colors::{Color, format_color};
 
@@ -18,6 +21,8 @@ fn main() {
 
     let secret_number = rand::thread_rng()
         .gen_range(1..=MAX_NUMBER);
+    
+    let mut game = GameState::new(secret_number); 
 
     let mut number_of_guesses = 0;
 
@@ -25,7 +30,7 @@ fn main() {
     let mut highest_guess: u32 = MAX_NUMBER;
     let mut lowest_guess: u32 = 0;
 
-    // println!("Hint, the Number is {secret_number}");
+    println!("Hint, the Number is {secret_number}");
 
     loop {
         println!("Please input your guess:");
@@ -62,27 +67,11 @@ fn main() {
             },
         };
 
-        // increment the guess count:
-        number_of_guesses = increment(number_of_guesses);
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => {
-                println!("GUESS {}!", format_color("HIGHER", &Color::Red));
-                if guess > lowest_guess {
-                    lowest_guess = guess;
-                }
-            },
-            Ordering::Greater => {
-                println!("GUESS {}!", format_color("LOWER", &Color::Green));
-
-                if guess < highest_guess {
-                    highest_guess = guess;
-                }
-            },
-            Ordering::Equal => {
-                win(number_of_guesses, number_of_hints);
-                break;
-            }
+        if game.handle_guess(guess) {
+            win(game.number_of_guesses, game.number_of_hints);
+            break;
+        } else {
+            println!("NOPE");
         }
     }
 }
