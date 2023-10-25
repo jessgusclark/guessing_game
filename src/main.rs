@@ -10,14 +10,14 @@ mod text_utils;
 use text_utils::utils::create_header;
 
 
-const MAX_MUMBER: u32 = 100;
+const MAX_NUMBER: u32 = 100;
 fn main() {
     create_header("GUESS THE NUMBER", Color::Red);
 
-    println!("Please guess a number between 1 and {}", MAX_MUMBER);
+    println!("Please guess a number between 1 and {}", MAX_NUMBER);
 
     let secret_number = rand::thread_rng()
-        .gen_range(1..=MAX_MUMBER);
+        .gen_range(1..=MAX_NUMBER);
 
     let mut number_of_guesses = 0;
 
@@ -35,7 +35,7 @@ fn main() {
         // check if the input is a number 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => {
-                if num > MAX_MUMBER {
+                if num > MAX_NUMBER {
                     println!("{}", format_color("The number is between 1 and 100.", &Color::Red));
                 }
                 num
