@@ -1,13 +1,13 @@
 pub mod utils {
     use crate::colors::{Color, format_color};
 
-    pub fn write_line(length: usize) -> String {
+    pub fn row_line(length: usize) -> String {
         '='.to_string().repeat(length)
     }
 
     pub fn create_header(text: &str, color: Color) {
         let text_length: usize = text.len() + 8;
-        let line = format_color(&write_line(text_length), &color);
+        let line = format_color(&row_line(text_length), &color);
     
         let column_line = format_color("||", &color);
     
@@ -19,7 +19,7 @@ pub mod utils {
 
 #[test]
 fn test_write_line() {
-    assert_eq!(utils::write_line(0), "");
-    assert_eq!(utils::write_line(5), "=====");
-    assert_eq!(utils::write_line(10), "==========");
+    assert_eq!(utils::row_line(0), "");
+    assert_eq!(utils::row_line(5), "=====");
+    assert_eq!(utils::row_line(10), "==========");
 }
