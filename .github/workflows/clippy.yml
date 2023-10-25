@@ -1,0 +1,20 @@
+name: Run Clippy
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test_application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update local toolchain
+        run: |
+          rustup update    
+
+      - name: Ask clippy to check the code
+        run: |
+          cargo clippy --all-targets --all-features -- -D warnings
