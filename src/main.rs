@@ -20,11 +20,15 @@ fn main() {
         .gen_range(1..=MAX_NUMBER);
 
     let mut number_of_guesses = 0;
+    let mut highest_guess: u32 = MAX_NUMBER;
+    let mut lowest_guess: u32 = 0;
 
     // println!("Hint, the Number is {secret_number}");
 
     loop {
         println!("Please input your guess:");
+
+        println!("It is between {} and {}", lowest_guess, highest_guess);
 
         let mut guess = String::new();
 
@@ -41,7 +45,7 @@ fn main() {
                 num
             },
             Err(_) => {
-                println!("{}", format_color("Numbers only Please!", &Color::Yellow));
+                handle_user_input_error(guess);
                 continue
             },
         };
@@ -50,14 +54,33 @@ fn main() {
         number_of_guesses = increment(number_of_guesses);
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("GUESS {}!", format_color("HIGHER", &Color::Red)),
-            Ordering::Greater => println!("GUESS {}!", format_color("LOWER", &Color::Green)),
+            Ordering::Less => {
+                println!("GUESS {}!", format_color("HIGHER", &Color::Red));
+                if guess > lowest_guess {
+                    lowest_guess = guess;
+                }
+            },
+            Ordering::Greater => {
+                println!("GUESS {}!", format_color("LOWER", &Color::Green));
+
+                if guess < highest_guess {
+                    highest_guess = guess;
+                }
+            },
             Ordering::Equal => {
                 win(number_of_guesses);
                 break;
             }
         }
     }
+}
+
+fn handle_user_input_error(guess: String) -> () {
+    if guess.trim() == "hint" {
+        return println!("you don't get any hints!")
+    }
+
+    println!("{}", format_color("Numbers only Please!", &Color::Yellow));
 }
 
 fn increment(amount: u32) -> u32 {
