@@ -1,21 +1,17 @@
 use std::process;
 
+mod print_help;
+use print_help::print_help;
+
+mod get_max_number;
+use get_max_number::get_max_number;
+
 pub fn handle_user_parameters(args: Vec<String>) -> u32 {
     let mut max_number: u32 = 100;
     for arg in args.iter() {
         match arg.as_str() {
             "--help" | "-h" => {
-                println!("Jesse's Guessing Game!");
-                println!();
-                println!("  Select a number between 1 and 100");
-                println!("  Too see the range of numbers already guessed, type hint.");
-                println!("  Try to guess the number with the least number of guesses.");
-                println!();
-                println!("Options:");
-                println!("  -h, --help          Prints this message.");
-                println!("  -v, --version       Gets the version number");
-                println!("  --max_number=1000   Sets the max number");
-                println!();
+                print_help();
                 process::exit(0);
             }
 
@@ -23,18 +19,8 @@ pub fn handle_user_parameters(args: Vec<String>) -> u32 {
                 println!("Version: 0.1.0");
             }
 
-            arg if arg.starts_with("--max_number=") => {
-                // splits the contents into an Iterator with two parts
-                // the nth() gets the second part (i.e. 1). Since this 
-                // is not an array, you can't select it with [1]:
-                if let Some(number) = arg.split('=').nth(1) {
-                    if let Ok(number) = number.parse::<u32>() {
-                        max_number = number;
-                    } else {
-                        println!("Error parsing max_number");
-                    }
-                }
-            }            
+            arg if arg.starts_with("--max_number=") =>
+                max_number = get_max_number(arg, 100),
 
             // need to handle the default match, in this case, ignore it.
             _ => {}
