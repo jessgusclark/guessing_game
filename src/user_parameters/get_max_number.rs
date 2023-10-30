@@ -17,17 +17,17 @@ pub fn get_max_number(arg: &str, number: u32) -> u32 {
 #[test]
 fn test_get_max_number() {
     // success:
-    assert_eq!(get_max_number(&"max_number=10", 100), 10);
-    assert_eq!(get_max_number(&"max_number=50", 100), 50);
-    assert_eq!(get_max_number(&"max_number=70", 100), 70);
+    assert_eq!(get_max_number("max_number=10", 100), 10);
+    assert_eq!(get_max_number("max_number=50", 100), 50);
+    assert_eq!(get_max_number("max_number=70", 100), 70);
 
     // fail (incorrect string):
-    assert_eq!(get_max_number(&"max_number=hehe", 100), 100);
-    assert_eq!(get_max_number(&"max_number=", 100), 100);
+    assert_eq!(get_max_number("max_number=hehe", 100), 100);
+    assert_eq!(get_max_number("max_number=", 100), 100);
 
     // fail (negative number):
-    assert_eq!(get_max_number(&"max_number=-100", 100), 100);
+    assert_eq!(get_max_number("max_number=-100", 100), 100);
 
     // fail zero:
-    assert_eq!(get_max_number(&"max_number=0", 100), 100);
+    assert_eq!(get_max_number("max_number=0", 100), 100);
 }
